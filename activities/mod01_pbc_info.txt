@@ -1,0 +1,20 @@
+id:			case number
+time:		number of days between registration and the earlier of death, transplantion, or study analysis in July, 1986
+status:		status at endpoint: 0=alive, no transplant; 1=alive, liver transplant; 2=dead
+trt:		1=D-penicillmain; 2=placebo; .=not randomised
+age:		in years
+sex:		1=male; 2=female
+ascites:	presence of ascites: 0=no; 1=yes
+hepato:		presence of hepatomegaly or enlarged liver: 0=no; 1=yes
+spiders:	blood vessel malformations in the skin: 0=no; 1=yes
+edema:		0 no edema, 0.5 untreated or successfully treated, 1 edema despite diuretic therapy
+bili:		serum bilirunbin (mg/dl)
+chol:		serum cholesterol (mg/dl)
+albumin:	serum albumin (g/dl)
+copper:		urine copper (ug/day)
+alkphos:	alkaline phosphotase (U/liter)
+ast:		aspartate aminotransferase, once called SGOT (U/ml)
+trig:		triglycerides (mg/dl)
+platelet:	platelet count
+protime:	standardised blood clotting time
+stage:		histologic stage of disease (needs biopsy)
