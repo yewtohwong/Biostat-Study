@@ -3,12 +3,14 @@
 # Purpose: Week 2 Actvities 
 
 # library used 
-library("jmv")
-library("ggplot2")
+library(jmv)
+library(ggplot2)
 install.packages("devtools")
 library(devtools)
 install_github("raviselker/surveymv")
+library(dplyr)
 
+# Activity 2.1 -----------------------------------------------------------
 # Read in data 
 list.files()
 lbw <- readRDS("Activity_2.1.rds")
@@ -39,3 +41,12 @@ ggplot(data = lbw, aes(x = AgeGrp, fill = LOW)) +
 # Smoking is associated with lbw 
 # Younger mother <30 yo are associated with lbw
 
+# Activity 2.2 -------------------------------------------------------------
+# 90 participants in RCT
+# Preference (probability = 0.5)
+
+# 60 or more people prefer the new drug
+p60 <- pbinom(59, 90, 0.5, lower.tail = FALSE)
+p60
+
+# Activity 2.3 --------------------------------------------------------------
