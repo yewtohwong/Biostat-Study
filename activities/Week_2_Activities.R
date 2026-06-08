@@ -50,3 +50,32 @@ p60 <- pbinom(59, 90, 0.5, lower.tail = FALSE)
 p60
 
 # Activity 2.3 --------------------------------------------------------------
+# field technique of detecting schistosomiasis ova probability = 0.035
+# 5 samples per patient
+# patient with low level of infection will not be identified
+p0 <- pbinom(0,5,0.035, lower.tail=TRUE, log.p=FALSE)
+p0
+
+d0 <- dbinom(0, 5, 0.035)
+d0
+
+# identified in 2 of the samples
+d2 <- dbinom(2, 5, 0.035, log=FALSE)
+d2
+
+# identified in all the samples
+d5 <- dbinom(5, 5, 0.035)
+d5
+
+# identified in at most 3 of the samples
+p3 <- pbinom(3, 5, 0.035, lower.tail = TRUE)
+p3
+
+# Activity 2.4 --------------------------------------------------------------
+list.files()
+hs <- read.csv("Activity_2.4-health-survey.csv") 
+hs
+
+# find range of height 
+
+# bc$agegroup <- cut(pbc$age, breaks = c(0, 30, 50, 70, 100))
