@@ -208,3 +208,5 @@ los.clean.all |>
 
 # Summary statistics for each variables
 mean(los.clean.all$BirthWt)
+median(los.clean.all$BirthWt)
+median(los.clean.all$LengthStay)
