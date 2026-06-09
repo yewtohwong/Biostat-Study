@@ -201,3 +201,10 @@ los.clean.all |>
   theme_classic() +
   labs(x = "Gestational Age Category", y = "LOS (Days)") +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+
+
+
+
+# Summary statistics for each variables
+mean(los.clean.all$BirthWt)
