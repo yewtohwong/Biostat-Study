@@ -77,33 +77,5 @@ hs <- read.csv("Activity_2.4-health-survey.csv")
 hs
 
 # find range of height 
-height.range <- range(hs$height)
-height.range
-# Categorize height into 20cm groups
-hs$height.cat <- cut(hs$height,
-                     breaks = c(1.2, 1.4, 1.6, 1.8, 2.0, 2.2),
-                     labels = c("1.2m to less than 1.4m",
-                                "1.4m to less than 1.6m",
-                                "1.6m to less than 1.8m",
-                                "1.8m to less than 2.0m",
-                                "2.0m to less than 2.2m"))
-summary(hs$height.cat)
-table(hs$height.cat)
-plot(hs$height.cat, hs$weight)
 
-# Activities 2.5 -------------------------------------------------------------
-list.files()
-los <- readRDS("Activity_2.5-LengthOfStay.rds")
-
-# find out if na is present in each of the variable
-any(is.na(los$Sex))
-any(is.na(los$BirthWt))
-any(is.na(los$GestAge))
-any(is.na(los$LengthStay))
-
-# Plot each variable for birth weight and los
-# plot sex vs birth weight 
-# check sex is a factor and make sex a factor if not (categorical variable) 
-is.factor(los$Sex)
-# Sex is already a factor
-
+# bc$agegroup <- cut(pbc$age, breaks = c(0, 30, 50, 70, 100))
