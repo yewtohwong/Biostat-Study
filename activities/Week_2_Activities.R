@@ -107,3 +107,97 @@ any(is.na(los$LengthStay))
 is.factor(los$Sex)
 # Sex is already a factor
 
+# Plot sex vs birth weight 
+subset(los, is.na(BirthWt)==FALSE) |>
+  ggplot(mapping = aes(x=Sex))+
+  geom_bar(position = "dodge")+
+  theme_classic()+
+  labs(x="Sex", y="Birth Weight (Grams)")
+
+# Plot sex vs los
+ggplot(data=los, mapping = aes(x=Sex, y=LengthStay))+
+  geom_boxplot(position = "dodge")+
+  theme_classic()+
+  labs(x="Sex", y="LOS (days)")
+
+# Plot birth weight vs los
+subset(los, is.na(BirthWt)==FALSE) |>
+  ggplot(mapping = aes(x=BirthWt, y=LengthStay))+
+  geom_point()+
+  geom_smooth(method="lm")
+  theme_classic()+
+  labs(x="Birth Weight (Grams)", y="LOS (Days)")
+  
+# Plotting scatter plot 
+library(dplyr)
+library(ggplot2)
+  
+los.clean.all <- los |>
+    filter(!is.na(BirthWt),
+           !is.na(GestAge))
+
+ggplot(los.clean.all, aes(x = GestAge, y = BirthWt)) +
+  geom_point(alpha = 0.6) +
+  geom_smooth(method = "loess", se = FALSE, colour = "blue") +
+  labs(
+    x = "Gestational Age (weeks)",
+    y = "Birth Weight (grams)",
+    title = "Birth Weight vs Gestational Age"
+  )
+
+ggplot(los.clean.all, aes(x = BirthWt, y = LengthStay)) +
+  geom_point(alpha = 0.6) +
+  geom_smooth(method = "loess", se = FALSE, colour = "red") +
+  labs(
+    x = "Birth Weight (grams)",
+    y = "Length of Stay (days)",
+    title = "Birth Weight vs Length of Stay"
+  )
+
+ggplot(los.clean.all, aes(x = GestAge, y = LengthStay)) +
+  geom_point(alpha = 0.6) +
+  geom_smooth(method = "loess", se = FALSE, colour = "darkgreen") +
+  labs(
+    x = "Gestational Age (weeks)",
+    y = "Length of Stay (days)",
+    title = "Gestational Age vs Length of Stay"
+  )
+
+
+# Categorize birth weight and gestational age into categories
+# have to use right = FALSE to not include the higher bound value and include the lower bound value 
+# right = TRUE is the default value (include the higher bound but exclude the lower bound)
+
+los.clean.all <- los.clean.all |>
+  mutate(
+    bw.cat = cut(BirthWt,
+                 breaks = c(1500, 2000, 2500, 3000, 3500, 4000),
+                 labels = c("1500–<2000g", "2000–<2500g", "2500–<3000g",
+                            "3000–<3500g", "3500–<4000g"), right=FALSE),
+    ga.cat = cut(GestAge,
+                 breaks = c(31, 33, 35, 37, 39, 42),
+                 labels = c("31–<33w", "33–<35w", "35–<37w",
+                            "37–<39w", "39–<42w"), right=FALSE),
+    
+    los.cat = cut(LengthStay,
+                 breaks = c(0, 3, 7, 14, 90, 365),
+                 labels = c("0–<3d", "3d–<7d", "7d–<14d",
+                            "14d–<90d", "90d–<365d"), right=FALSE),
+  )
+
+# Can still use box plot for numerical data that has been categorized
+# Birth weight categories vs LOS
+los.clean.all |>
+  ggplot(aes(x = bw.cat, y = LengthStay)) +
+  geom_boxplot() +
+  theme_classic() +
+  labs(x = "Birth Weight Category", y = "LOS (Days)") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+# Gestational age categories vs LOS
+los.clean.all |>
+  ggplot(aes(x = ga.cat, y = LengthStay)) +
+  geom_boxplot() +
+  theme_classic() +
+  labs(x = "Gestational Age Category", y = "LOS (Days)") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
