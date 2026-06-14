@@ -103,24 +103,56 @@ list.files()
 hs <- read.csv("Activity_2.4-health-survey.csv") 
 hs
 
+# Summary statistics for height
+descriptives(data=hs, vars = height, dens = TRUE)
+
 # find range of height 
 height.range <- range(hs$height)
 height.range
 # Categorize height into 20cm groups
+# right=FALSE means the higher value is not included in the group (default)  
 hs$height.cat <- cut(hs$height,
                      breaks = c(1.2, 1.4, 1.6, 1.8, 2.0, 2.2),
+                     right = FALSE,# Checking at this point using summary(hs$height.cat) can tell us what is included in which group 
                      labels = c("1.2m to less than 1.4m",
                                 "1.4m to less than 1.6m",
                                 "1.6m to less than 1.8m",
                                 "1.8m to less than 2.0m",
                                 "2.0m to less than 2.2m"))
+
 summary(hs$height.cat)
 table(hs$height.cat)
 plot(hs$height.cat, hs$weight)
 
+# Barchart or frequency table 
+descriptives(data=hs, vars=height.cat, fre=TRUE)
+
+
 # Activities 2.5 -------------------------------------------------------------
 list.files()
 los <- readRDS("Activity_2.5-LengthOfStay.rds")
+
+# Looking at distribution of data
+hist(los$BirthWt)
+plot(density(los$BirthWt, na.rm=TRUE))
+boxplot(los$BirthWt)
+# Birth weight is reasonably symmetric
+# Report mean and SD
+
+hist(los$LengthStay)
+plot(density(los$LengthStay, na.rm=TRUE))
+boxplot(los$LengthStay)
+# Length of stay is not symmetric
+# Report median and IQR
+
+descriptives(data=los, vars=c(BirthWt, LengthStay),
+             pc=TRUE)
+
+
+
+End of activities ------------------------------------------------------
+
+
 
 # find out if na is present in each of the variable
 any(is.na(los$Sex))
