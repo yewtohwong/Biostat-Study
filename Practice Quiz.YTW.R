@@ -1,6 +1,6 @@
 # Author: Yew Toh Wong
-# Date: 7 June 2026
-# Purpose: Week 2 Actvities 
+# Date: 14 June 2026
+# Purpose: Practice Quiz 
 
 # library used 
 library(skimr)
