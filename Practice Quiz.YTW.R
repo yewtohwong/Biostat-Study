@@ -14,6 +14,87 @@ library(dplyr)
 install.packages("epiDisplay")
 library(epiDisplay)
 
+# Cold in winter ----------------------------------
+# probability is 0.05
+# 10 people
+
+p1 <- pbinom(0, 10, 0.05, lower.tail = FALSE)
+p1
+
+# BP ------------------------------------------------------------------------
+list.files()
+bp <- readRDS("bloodpressure.rds")
+descriptives(data=bp, vars="systolic_bp", pc=TRUE)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# Activity 2.3 --------------------------------------------------------------
+# field technique of detecting schistosomiasis ova probability = 0.035
+# 5 samples per patient
+# patient with low level of infection will not be identified
+p0 <- pbinom(0,5,0.035, lower.tail=TRUE, log.p=FALSE)
+p0
+
+d0 <- dbinom(0, 5, 0.035)
+d0
+
+# identified in 2 of the samples
+d2 <- dbinom(2, 5, 0.035, log=FALSE)
+d2
+
+# identified in all the samples
+d5 <- dbinom(5, 5, 0.035)
+d5
+
+# identified in at most 3 of the samples
+p3 <- pbinom(3, 5, 0.035, lower.tail = TRUE)
+p3
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 # Activity 2.1 -----------------------------------------------------------
 # Read in data 
 list.files()
