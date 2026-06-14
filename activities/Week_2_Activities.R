@@ -3,23 +3,47 @@
 # Purpose: Week 2 Actvities 
 
 # library used 
+library(skimr)
 library(jmv)
 library(ggplot2)
 install.packages("devtools")
 library(devtools)
 install_github("raviselker/surveymv")
+library("surveymv")
 library(dplyr)
+install.packages("epiDisplay")
+library(epiDisplay)
 
 # Activity 2.1 -----------------------------------------------------------
 # Read in data 
 list.files()
 lbw <- readRDS("Activity_2.1.rds")
 
+skim(lbw)
+
 # Create 2x2 contingency table for lbw and smoking status
 contTables(data=lbw, rows="SMOKE", cols="LOW", pcRow = TRUE)
 contTables(data=lbw, rows="SMOKE", cols="LOW", pcCol = TRUE)
 
 # Create stacked bar chart using contTables (not able to have title)
+
+# Distribution of age group
+descriptives(data=lbw, vars=AgeGrp, freq=TRUE)
+
+# Low birth weight by age group 
+# When it is an object with variables and data within no need for quotation mark
+# Description of how you want the program to work then use quotation mark
+library(surveymv)
+
+surveyPlot(
+  data = lbw,
+  vars = "LOW",
+  group = "AgeGrp",
+  type = "stacked",
+  freq = "perc"
+)
+
+
 contTables(
   data=lbw, 
   rows="AgeGrp", 
@@ -46,6 +70,9 @@ ggplot(data = lbw, aes(x = AgeGrp, fill = LOW)) +
 # Preference (probability = 0.5)
 
 # 60 or more people prefer the new drug
+# Launch the applet in epiDisplay
+# applet() doesn't work anymore 
+
 p60 <- pbinom(59, 90, 0.5, lower.tail = FALSE)
 p60
 
