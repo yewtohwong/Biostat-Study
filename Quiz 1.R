@@ -11,23 +11,21 @@ library(devtools)
 install_github("raviselker/surveymv")
 library("surveymv")
 library(dplyr)
-install.packages("epiDisplay")
-library(epiDisplay)
 
-# Cold in winter ----------------------------------
-# probability is 0.05
-# 10 people
 
-p1 <- pbinom(0, 10, 0.05, lower.tail = FALSE)
-p1
-
-# BP ------------------------------------------------------------------------
+# Prostate ------------------------------------------------------------------------
 list.files()
-bp <- readRDS("bloodpressure.rds")
-descriptives(data=bp, vars="systolic_bp", pc=TRUE)
+prostate <- readRDS("prostate.rds")
+descriptives(data=prostate, vars="preop_psa", pc=TRUE)
 
 
+# Drug use ----------------------------------
+# probability is 0.179
+# 6 people
+# 3 or more people will have use drug
 
+p3 <- pbinom(2, 6, 0.179, lower.tail = FALSE)
+p3
 
 
 
