@@ -29,3 +29,24 @@ p65
 list.files()
 dbp <- read.csv("mod03_blood_pressure.csv")
 descriptives(data=dbp, vars=dbp, ci=TRUE)
+
+# Finding CI from summarised data
+# width is the CI level, e.g. 0.95.
+# 1 - width is the total alpha (e.g. 0.05).
+# (1 - width)/2 is alpha/2 (e.g. 0.025 in each tail).
+# 1 - (1 - width)/2 gives the upper tail probability (e.g. 0.975).
+# qt() is the t‑quantile function in R: it returns the t value such that 𝑃(𝑇≤𝑡crit)= 1−(1−width)/2
+# df = n - 1 sets the degrees of freedom for the t‑distribution.
+# lcl - lower confidence limit
+# ucl - upper confidence limit
+
+ci_mean <- function(n, mean, sd, width = 0.95, digits = 3){ 
+  tcrit <- qt(1 - (1 - width)/2, df = n - 1) 
+  lcl <- mean - tcrit * sd/sqrt(n) 
+  ucl <- mean + tcrit * sd/sqrt(n) 
+  return( c(lower = round(lcl, digits), 
+            upper = round(ucl, digits)) )
+}
+ci_mean(n = 242, mean = 128.4, sd = 19.56, width = 0.95)
+
+
