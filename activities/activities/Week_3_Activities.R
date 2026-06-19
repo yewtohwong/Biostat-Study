@@ -166,3 +166,71 @@ ggplot(data=dsc, mapping=aes(x=TotalSugar, colour=factor(Preschool)))+
 
 # standard error by preschool
 descriptives(data=dsc, vars=TotalSugar, splitBy=Preschool, se=TRUE, ci=TRUE)
+
+# Activity 3.3 -------------------------------------------------------------
+# read Activity_1.3.csv
+dbp <- read.csv("Activity_1.3.csv")
+ggplot(data=dbp, aes(x=dbp))+
+  geom_density()+
+  theme_bw()+
+  labs(x="Diastolic Blood Pressure (mmHg)", y="Density", title="Diastolic Blood Pressure of NSW Students (mmHg)")
+
+# estimate mean, standard error of the mean, 95% ci for dbp
+descriptives(data=dbp, vars=dbp, se=TRUE, ci=TRUE)
+
+# Activity 3.4 -------------------------------------------------------------
+# read Activity-3.4.xlsx
+bmi <- read_excel("Activity_3.4.xlsx" )
+
+# skim in R provide overall summary of dataframe
+skim(bmi)
+
+# create new variable BMI 
+bmi$BMI <- bmi$weight/(bmi$height^2)
+
+# categorize BMI and sex into categories 
+bmi <- bmi|>
+  mutate(
+    BMI.cat =cut(BMI, 
+                 breaks=c(0, 18.5, 25, 30, 100),
+                 labels=c("Underweight", "Normal Weight", "Overweight", "Obese"), 
+                 right=FALSE
+    ))
+bmi$sex=factor(bmi$sex, level=c(1,2), labels=c("Male", 'Female'))
+# check the distribution of bmi
+descriptives(data=bmi, vars=c(height, weight, BMI), dens=TRUE, box=TRUE) 
+
+# use the subset function to examine the outlier 
+subset(bmi, BMI<15)
+subset(bmi, BMI>50)
+
+
+# create a two way table for BMI categorize by sex
+contTables(data=bmi, rows=sex, cols=BMI.cat, pcRow=TRUE)
+
+# Activity 3.5 -----------------------------------------------------------
+# read file Activity_3.5.csv
+los <- read.csv("Activity_3.5.csv")
+
+# female=1; male=0
+# factor female into gender
+# los$gender will create a new column in the dataframe "gender"
+los$gender=factor(los$female, level=c(0,1), labels=c("Male", 'Female'))
+
+# distribution of los by gender 
+descriptives(data=los, vars=los, dens=TRUE, box=TRUE, splitBy=gender, 
+             iqr=TRUE, pc=TRUE, pcValues=c(25,75),
+             ci=TRUE, ciWidth=95)
+
+# Activity 3.6 -------------------------------------------------------------
+# men weights mean =87
+# sd= 8kg
+# probability that a man will weigh 95 Kg and above
+# the setting in the R suggestion are default settings
+pnorm(95, mean=87, sd=8, lower.tail=FALSE, log.p=FALSE)
+# probability that a man will weight more than 75 Kg but less than 95 Kg
+1-pnorm(95, mean=87, sd=8, lower.tail=FALSE, log.p=FALSE)-
+  pnorm(75, mean=87, sd=8, lower.tail=TRUE, log.p=FALSE) 
+# alternative
+p_between <- pnorm(95, 87, 8) - pnorm(75, 87, 8)
+p_between
