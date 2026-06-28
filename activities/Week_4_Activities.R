@@ -32,8 +32,28 @@ t_std
 # read Activity_4.2.csv
 list.files()
 health <- read.csv("Activity_4.2.csv")
+summary(health)
 
 # Australian female waist circumference 87.9cm
-# Compare the GP clinic sample 
-t.health <- t.test(health$waist, mu=87.9)
+# Compare the GP clinic sample
+# Look at data distribution first 
+plot(density(health$waist, na.rm=TRUE),
+     main= " Density Plot of Waist Circumference",
+     xlab= "Waist Circumference (cm)",
+     ylab= "Density")
+
+ggplot(data=health, mapping=aes(x="", y=waist))+
+         geom_boxplot()+
+         theme_classic()+
+         labs(
+           title= "Boxplot of Waist Circumference (cm)",
+           y="Waist Circumference in cm",
+           x=""
+         )
+       
+       
+t.health <- t.test(health$waist, mu=87.9, ci=TRUE)
 t.health
+
+# alternative use descriptive from jmv
+descriptives(data=health, vars=waist, ci=TRUE)
