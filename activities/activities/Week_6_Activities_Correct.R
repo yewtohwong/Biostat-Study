@@ -73,6 +73,7 @@ summarydata
 contTables(data = summarydata,
            rows = heart_attack, 
            cols = death,
-           count = n, # contTables() treats your dataset as if each row represents one person
+           count=n, 
+           # treat each row as a number without count, use when creating own table or summarized data
            pcRow = TRUE, 
            relRisk = TRUE)
